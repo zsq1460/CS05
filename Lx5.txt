@@ -1,0 +1,94 @@
+﻿C#企业级开发技术练习5答题卡
+
+班级：19 信管1班     
+姓名： 张舒倩    
+学号：20190307137     
+
+注：请将答案放置在序号下方。*/
+
+（一）using System;
+
+namespace ConsoleApp1
+{
+    public class UserSys
+    {
+        public delegate void DLogin(object o, int n);
+        DLogin elogin;
+        public event DLogin Elogin
+        {
+            add
+            { elogin += value; }
+            remove
+            { elogin -= value; }
+        }
+        int n = 10000;
+        public void login()
+        {
+            elogin(this, ++n);
+           
+        }
+    }
+                   
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            UserSys user = new UserSys();
+            user.Elogin += (o, n) => Console.WriteLine($"{n}登录{o}成功");
+            user.login();
+            user.login();
+            user.login();
+        }
+    }
+}
+
+
+
+（二）class Program
+    {
+        static void Main(string[] args)
+        {
+            string str1 = "c#,java,python,golang,PHP,VB";
+            string[] str2 = str1.Split(',');
+            Array.Sort(str2, (a, b) => string.Compare(a.ToString(), b.ToString()));
+            string str3 = string.Join(",", str2);
+            Console.WriteLine(str3);
+        }
+    }
+}
+
+
+（三）using System;
+
+namespace ConsoleApp1
+{
+    public class MathSys
+    {
+        public delegate void DFilter(int[] num);
+        public event DFilter EFilter;
+        public void filter(int[] num)
+        {
+            EFilter(num);
+        }
+    }
+   
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MathSys math = new MathSys();
+            math.EFilter += num =>
+            {
+                int[] even = num;
+                Console.WriteLine("数组中的偶数如下：");
+                foreach (int i in even)
+
+
+                    Console.WriteLine(i);
+            };
+            math.filter(new[] { 10, 8,  24 });
+        }
+    }
+}
+
